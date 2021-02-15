@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "styl",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "styl",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "styl"
+    }
+  },
+  "defaultProject": "formulario1",
+  "projects": {
+    "formulario1": {
+      "projectType": "application",
+      "root": "apps/formulario1",
+      "sourceRoot": "apps/formulario1/src",
+      "prefix": "formulario1",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/formulario1",
+            "index": "apps/formulario1/src/index.html",
+            "main": "apps/formulario1/src/main.ts",
+            "polyfills": "apps/formulario1/src/polyfills.ts",
+            "tsConfig": "apps/formulario1/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/formulario1/src/favicon.ico",
+              "apps/formulario1/src/assets"
+            ],
+            "styles": ["apps/formulario1/src/styles.styl"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/formulario1/src/environments/environment.ts",
+                  "with": "apps/formulario1/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "formulario1:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "formulario1:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "formulario1:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/formulario1/src/**/*.ts",
+              "apps/formulario1/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/formulario1"],
+          "options": {
+            "jestConfig": "apps/formulario1/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "formulario1-e2e": {
+      "root": "apps/formulario1-e2e",
+      "sourceRoot": "apps/formulario1-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/formulario1-e2e/cypress.json",
+            "tsConfig": "apps/formulario1-e2e/tsconfig.e2e.json",
+            "devServerTarget": "formulario1:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "formulario1:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/formulario1-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
