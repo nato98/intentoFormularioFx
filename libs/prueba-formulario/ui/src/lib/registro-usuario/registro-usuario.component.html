@@ -1,0 +1,201 @@
+<section>
+  <form
+    [formGroup]="formulario"
+    fxLayout="column"
+    fxLayoutAlign="space-around center"
+  >
+    <!-- En maquetado de nombres y apellidos -->
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="20"
+      fxFill
+    >
+      <mat-form-field fxFlex="20">
+        <mat-label>Primer apellido*</mat-label>
+        <input
+          id=""
+          autocomplete="off"
+          formControlName="primerApellido"
+          matInput
+          placeholder="Primer apellido"
+        />
+        <mat-error
+          *ngIf="formulario.controls['primerApellido'].hasError('required')"
+        >
+          Primer apellido <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="formulario.controls['primerApellido'].hasError('min')"
+          >Primer apellido <strong>mínimo 3 caracteres</strong></mat-error
+        >
+        <!-- <mat-error *ngIf="formulario.controls['primerApellido'].hasError('max')"
+          >Primer apellido <strong>máximo 15 caracteres</strong></mat-error
+        > -->
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Segundo apellido*</mat-label>
+        <input formControlName="segundoApellido" matInput />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Primer nombre*</mat-label>
+        <input formControlName="primerNombre" matInput />
+        <mat-error
+          *ngIf="formulario.controls['primerNombre'].hasError('pattern')"
+        >
+          Primer nombre <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Segundo nombre*</mat-label>
+        <input formControlName="segundoNombre" matInput />
+      </mat-form-field>
+    </div>
+    <!-- Tipo identificación, identificación, grupo sanguineo y RH -->
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="20"
+      fxFill
+    >
+      <mat-form-field fxFlex="20">
+        <mat-label>Tipo de identificación*</mat-label>
+        <mat-select formControlName="tipoIdentificacion">
+          <mat-option
+            *ngFor="let tipoIde of tipoDeIdentifiacion"
+            value="{{ tipoIde }}"
+            >{{ tipoIde }}</mat-option
+          >
+        </mat-select>
+        <mat-error
+          *ngIf="formulario.controls['tipoIdentificacion'].hasError('required')"
+          >Tipo de identificación <strong>requerido</strong></mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Número de identificación*</mat-label>
+        <input formControlName="numeroIdentifiacion" matInput />
+        <mat-error
+          *ngIf="formulario.controls['numeroIdentifiacion'].hasError('required')"
+          >Identificación <strong>requerido</strong></mat-error
+        >
+        <mat-error *ngIf="formulario.controls['numeroIdentifiacion'].hasError('min')"
+          >Identificación <strong>10 caracteres</strong></mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Gupo sanguineo*</mat-label>
+        <mat-select formControlName="grupoSanguineo">
+          <mat-option
+            *ngFor="let grupoSanguineo of listaGrupoSanguineo"
+            value="{{ grupoSanguineo }}"
+            >{{ grupoSanguineo }}</mat-option
+          >
+        </mat-select>
+        <mat-error
+          *ngIf="formulario.controls['grupoSanguineo'].hasError('required')"
+          >Grupo sanguineo <strong>requerido</strong></mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Factor RH*</mat-label>
+        <input formControlName="factorRH" matInput />
+      </mat-form-field>
+    </div>
+    <!-- Genero, edad, fecha de nacimiento, información adicional -->
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="20"
+      fxFill
+    >
+      <mat-form-field fxFlex="20">
+        <mat-label>Género*</mat-label>
+        <mat-select formControlName="genero">
+          <mat-option *ngFor="let genero of listaGenero" value="{{ genero }}">{{
+            genero
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="formulario.controls['genero'].hasError('required')"
+          >Género requerido</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Edad*</mat-label>
+        <input formControlName="edad" matInput />
+      </mat-form-field>
+
+      <mat-form-field fxFlex="20">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input
+          formControlName="fechaNacimiento"
+          matInput
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <div fxLayout="column" fxLayoutAlign="start" fxFlex="20">
+        <mat-checkbox [formControl]="informacionAdicional" fxFlex="20"
+          >Información adicional</mat-checkbox
+        >
+      </div>
+    </div>
+    <!-- Correo, celular, fijo, botones de acción -->
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-around center"
+      fxLayoutGap="20"
+      fxFill
+    >
+      <div fxFlex="80" fxLayoutAlign="space-around center" fxLayoutGap="20">
+        <!-- <div fxFlex="80" fxLayoutAlign="space-around center"> -->
+        <div
+          *ngIf="informacionAdicional.value"
+          fxFill
+          fxLayoutAlign="space-around center"
+        >
+          <mat-form-field fxFlex="25">
+            <mat-label>Correo*</mat-label>
+            <input formControlName="correo" matInput />
+            <mat-error
+              *ngIf="formulario.controls['correo'].hasError('pattern')"
+            >
+              Correo <strong>invalido</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="25">
+            <mat-label>Número de celular*</mat-label>
+            <input formControlName="celular" matInput />
+          </mat-form-field>
+          <mat-form-field fxFlex="25">
+            <mat-label>Número de teléfono fijo*</mat-label>
+            <input formControlName="telefonoFijo" matInput />
+          </mat-form-field>
+        </div>
+        <!-- </div> -->
+      </div>
+      <div fxLayout="row" fxFlex="20" fxLayoutAlign="space-aroud end">
+        <div fxLayoutGap="10px">
+          <button
+            type="button"
+            mat-flat-button
+            color="primary"
+            (click)="onGuardarDatosTabla()"
+          >
+            Adicionar
+          </button>
+          <button mat-flat-button color="warn">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+1

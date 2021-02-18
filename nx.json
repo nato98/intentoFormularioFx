@@ -17,6 +17,10 @@
   },
   "projects": {
     "formulario1": { "tags": [] },
-    "formulario1-e2e": { "tags": [], "implicitDependencies": ["formulario1"] }
+    "formulario1-e2e": { "tags": [], "implicitDependencies": ["formulario1"] },
+    "prueba-formulario-data-access": { "tags": [] },
+    "prueba-formulario-feature-shell": { "tags": [] },
+    "prueba-formulario-feature-formulario-padre": { "tags": [] },
+    "prueba-formulario-ui": { "tags": [] }
   }
 }

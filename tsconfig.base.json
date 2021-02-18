@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@formulario1/prueba-formulario/data-access": [
+        "libs/prueba-formulario/data-access/src/index.ts"
+      ],
+      "@formulario1/prueba-formulario/feature-shell": [
+        "libs/prueba-formulario/feature-shell/src/index.ts"
+      ],
+      "@formulario1/prueba-formulario/feature-formulario-padre": [
+        "libs/prueba-formulario/feature-formulario-padre/src/index.ts"
+      ],
+      "@formulario1/prueba-formulario/ui": [
+        "libs/prueba-formulario/ui/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
